@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Supplier Details — MUC Database{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Supplier Details</h2>
+    <p>Information for supplier #{{ supplier._id }}</p>
+</div>
+
+<div class="card">
+    <div class="card-title">{{ supplier.name }}</div>
+    <div class="detail-grid">
+        <span class="detail-label">Supplier ID</span>
+        <span class="detail-value">{{ supplier._id }}</span>
+
+        <span class="detail-label">Name</span>
+        <span class="detail-value">{{ supplier.name }}</span>
+
+        <span class="detail-label">Email</span>
+        <span class="detail-value">{{ supplier.email }}</span>
+
+        <span class="detail-label">Phone Numbers</span>
+        <span class="detail-value">
+            {% for phone in phone_numbers %}
+                <span class="tag">{{ phone.phone_number }}</span>
+            {% endfor %}
+        </span>
+    </div>
+</div>
+
+<a href="{{ url_for('add_supplier') }}" class="btn btn-secondary">← Add Another Supplier</a>
+{% endblock %}

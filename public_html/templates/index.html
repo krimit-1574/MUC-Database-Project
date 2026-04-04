@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}MUC Database — Dashboard{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h2>MUC Database System</h2>
+    <p>Manage parts, suppliers, and orders for MUC Used Cars. Select an operation below to get started.</p>
+</div>
+
+<div class="features-grid">
+    <a href="{{ url_for('show_table') }}" class="feature-card" id="feature-show-table">
+        <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </div>
+        <div>
+            <h3>Show Table</h3>
+            <p>Enter a table name to view all its contents, including parts, suppliers, orders, and more.</p>
+        </div>
+    </a>
+    <a href="{{ url_for('add_supplier') }}" class="feature-card" id="feature-add-supplier">
+        <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+        <div>
+            <h3>Add New Supplier</h3>
+            <p>Register a new supplier with their contact information and phone numbers.</p>
+        </div>
+    </a>
+    <a href="{{ url_for('annual_expenses') }}" class="feature-card" id="feature-annual-expenses">
+        <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+            <h3>Annual Expenses for Parts</h3>
+            <p>View the total amount spent on parts for any range of years.</p>
+        </div>
+    </a>
+    <a href="{{ url_for('budget_projection') }}" class="feature-card" id="feature-budget-projection">
+        <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <div>
+            <h3>Budget Projection</h3>
+            <p>Project future spending with an inflation rate over a specified number of years.</p>
+        </div>
+    </a>
+</div>
+{% endblock %}

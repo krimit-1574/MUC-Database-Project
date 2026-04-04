@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Add Supplier — MUC Database{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Add New Supplier</h2>
+    <p>Enter all supplier information including phone numbers.</p>
+</div>
+
+<div class="card">
+    <form method="POST" action="{{ url_for('add_supplier') }}" id="add-supplier-form">
+        <div class="form-group">
+            <label class="form-label" for="supplier_id">Supplier ID</label>
+            <input type="number" class="form-control" name="supplier_id" id="supplier_id" placeholder="e.g. 101" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="e.g. Acme Parts Inc." required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="e.g. contact@acme.com" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Phone Numbers</label>
+            <div class="phone-fields" id="phone-fields">
+                <div class="phone-row">
+                    <input type="text" class="form-control" name="phone_number" placeholder="e.g. 1-(555)123-4567" required>
+                    <button type="button" class="btn-add-phone" onclick="addPhoneField()" title="Add another phone number">+</button>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn-add-supplier">Add Supplier</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function addPhoneField() {
+    const container = document.getElementById('phone-fields');
+    const row = document.createElement('div');
+    row.className = 'phone-row';
+    row.innerHTML = `
+        <input type="text" class="form-control" name="phone_number" placeholder="e.g. 1-(555)123-4567">
+        <button type="button" class="btn-remove-phone" onclick="removePhoneField(this)" title="Remove">×</button>
+    `;
+    container.appendChild(row);
+}
+
+function removePhoneField(btn) {
+    btn.parentElement.remove();
+}
+</script>
+{% endblock %}

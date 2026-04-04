@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Annual Expenses — MUC Database{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Annual Expenses for Parts</h2>
+    <p>View the total money paid for parts in each selected year.</p>
+</div>
+
+<div class="card">
+    <form method="POST" action="{{ url_for('annual_expenses') }}">
+        <div class="inline-form">
+            <div class="form-group">
+                <label class="form-label" for="start_year">Start Year</label>
+                <input type="number" class="form-control" name="start_year" id="start_year" placeholder="e.g. 2015" value="{{ start_year if start_year is defined else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="end_year">End Year</label>
+                <input type="number" class="form-control" name="end_year" id="end_year" placeholder="e.g. 2022" value="{{ end_year if end_year is defined else '' }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-annual-expenses">Show Expenses</button>
+        </div>
+    </form>
+</div>
+
+{% if expenses_data is defined and expenses_data is not none %}
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Years Covered</div>
+        <div class="stat-value accent">{{ expenses_data|length }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Total Expense</div>
+        <div class="stat-value">${{ "{:,.2f}".format(total_expense) }}</div>
+    </div>
+    {% if expenses_data|length > 0 %}
+    <div class="stat-card">
+        <div class="stat-label">Avg per Year</div>
+        <div class="stat-value">${{ "{:,.2f}".format(total_expense / expenses_data|length) }}</div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <div class="card-title">Expenses by Year</div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Total Expense ($)</th>
+                    <th>% of Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in expenses_data %}
+                <tr>
+                    <td>{{ row.year }}</td>
+                    <td>${{ "{:,.2f}".format(row.total_expense) }}</td>
+                    <td>{{ "{:.1f}".format(row.total_expense / total_expense * 100) }}%</td>
+                </tr>
+                {% endfor %}
+                {% if expenses_data|length == 0 %}
+                <tr>
+                    <td colspan="3" style="text-align:center; color:var(--text-muted); padding:24px;">
+                        No expense data found for the selected year range.
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

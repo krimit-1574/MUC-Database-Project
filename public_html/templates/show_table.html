@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Show Table — MUC Database{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Show Table</h2>
+    <p>Select a table to view its contents.</p>
+</div>
+
+<div class="card">
+    <form method="POST" action="{{ url_for('show_table') }}">
+        <div class="inline-form">
+            <div class="form-group" style="flex: 1;">
+                <label class="form-label" for="table_name">Table Name</label>
+                <select class="form-control" name="table_name" id="table_name" required>
+                    <option value="" disabled selected>Select a table…</option>
+                    {% for t in allowed_tables %}
+                        <option value="{{ t }}" {% if table_name is defined and table_name == t %}selected{% endif %}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-show-table">Show Table</button>
+        </div>
+    </form>
+</div>
+
+{% if table_data is defined and table_data is not none %}
+<div class="card">
+    <div class="card-title">{{ table_name }} <span style="color: var(--text-muted); font-weight: 400; font-size: 0.85rem;">({{ table_data|length }} rows)</span></div>
+    <div class="table-wrapper" style="max-height: 600px; overflow-y: auto;">
+        <table>
+            <thead>
+                <tr>
+                    {% for col in columns %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data %}
+                <tr>
+                    {% for col in columns %}
+                    <td>{{ row[col] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                {% if table_data|length == 0 %}
+                <tr>
+                    <td colspan="{{ columns|length }}" style="text-align: center; color: var(--text-muted); padding: 24px;">
+                        No data found in this table.
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

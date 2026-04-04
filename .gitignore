@@ -1,0 +1,6 @@
+public_html/.env
+public_html/venv/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store

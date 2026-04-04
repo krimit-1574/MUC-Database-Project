@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Budget Projection — MUC Database{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Budget Projection</h2>
+    <p>Project future spending by applying an inflation rate starting after 2022.</p>
+</div>
+
+<div class="card">
+    <form method="POST" action="{{ url_for('budget_projection') }}">
+        <div class="inline-form">
+            <div class="form-group">
+                <label class="form-label" for="years">Number of Years (N)</label>
+                <input type="number" class="form-control" name="years" id="years" placeholder="e.g. 5" value="{{ years if years is defined else '' }}" min="1" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="inflation_rate">Inflation Rate (%)</label>
+                <input type="number" step="0.01" class="form-control" name="inflation_rate" id="inflation_rate" placeholder="e.g. 2.0" value="{{ inflation_rate if inflation_rate is defined else '' }}" min="0" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-budget-projection">Project</button>
+        </div>
+    </form>
+</div>
+
+{% if projections is defined and projections is not none %}
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Base Year</div>
+        <div class="stat-value accent">{{ base_year }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Base Year Expense</div>
+        <div class="stat-value">${{ "{:,.2f}".format(base_expense) }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Inflation Rate</div>
+        <div class="stat-value">{{ inflation_rate }}%</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Projected Years</div>
+        <div class="stat-value success">{{ years }}</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Projected Annual Spending</div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Projected Expense ($)</th>
+                    <th>Increase from Base ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in projections %}
+                <tr>
+                    <td>{{ row.year }}</td>
+                    <td>${{ "{:,.2f}".format(row.expense) }}</td>
+                    <td style="color: var(--error);">+${{ "{:,.2f}".format(row.expense - base_expense) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
