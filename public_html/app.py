@@ -12,13 +12,12 @@ app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback-secret-key")
 
 # ── MySQL Configuration ────────────────────────────────────────
-# Replace with your credentials on dbcourse.cs-smu.ca
 DB_CONFIG = {
     'user': 'uxx',
-    'password': 'password',
+    'password': '[PASSWORD]',
     'host': 'localhost',
     'database': 'uxx',
-    'connection_timeout': 5   # fail fast if DB is unreachable
+    'connection_timeout': 5
 }
 
 # Whitelist of allowed table names (prevents SQL injection)

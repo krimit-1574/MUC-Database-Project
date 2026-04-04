@@ -2,9 +2,8 @@
 # j2sql_parts.sh
 # Creates the parts table and loads data from parts_100.json
 # ─────────────────────────────────────────────────
-# Change the values below to your own credentials:
 USER="uxx"
-PASS="password"
+PASS="[PASSWORD]"
 DB="uxx"
 # ─────────────────────────────────────────────────
 

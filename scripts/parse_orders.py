@@ -8,16 +8,14 @@ Note: Some orders contain duplicate part_ids (e.g., the same part listed
       twice with different quantities). Each item is inserted as a
       separate row in OrderPart.
 """
-import json
-import os
+
 from pathlib import Path
 
-current_user = os.getenv('USER')
-
 # Configuration — paths on the Linux server dbcourse.cs-smu.ca
-BASE_DIR = Path(f"/home/course/{current_user}/MUC-Database-System")
+SCRIPT_DIR = Path(_file_).resolve().parent
+BASE_DIR = SCRIPT_DIR.parent
 JSON_PATH = BASE_DIR / "data" / "orders_4000.json"
-SQL_OUTPUT = BASE_DIR / "scripts" / "orders.sql"
+SQL_OUTPUT = SCRIPT_DIR / "orders.sql"
 
 
 def generate_sql():
