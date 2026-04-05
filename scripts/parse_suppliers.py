@@ -4,10 +4,11 @@ parse_suppliers.py
 Reads suppliers_100.json (single JSON array) and generates suppliers.sql
 with INSERT statements for the supplier and SupplierPhone tables.
 """
+import json
 from pathlib import Path
 
 # Configuration — paths on the Linux server dbcourse.cs-smu.ca
-SCRIPT_DIR = Path(_file_).resolve().parent
+SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
 JSON_PATH = BASE_DIR / "data" / "suppliers_100.json"
 SQL_OUTPUT = SCRIPT_DIR / "suppliers.sql"

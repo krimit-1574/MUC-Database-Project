@@ -9,10 +9,11 @@ Note: Some orders contain duplicate part_ids (e.g., the same part listed
       separate row in OrderPart.
 """
 
+import json
 from pathlib import Path
 
 # Configuration — paths on the Linux server dbcourse.cs-smu.ca
-SCRIPT_DIR = Path(_file_).resolve().parent
+SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
 JSON_PATH = BASE_DIR / "data" / "orders_4000.json"
 SQL_OUTPUT = SCRIPT_DIR / "orders.sql"
