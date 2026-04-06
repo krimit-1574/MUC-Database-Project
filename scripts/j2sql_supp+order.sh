@@ -4,7 +4,7 @@
 # Requires: parts table must already exist (run j2sql_parts.sh first).
 # ─────────────────────────────────────────────────
 USER="u60"
-PASS="Been.Chair.Fill.Several.69"
+PASS="[PASSWORD]"
 DB="u60" 
 # ─────────────────────────────────────────────────
 

@@ -14,7 +14,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback-secret-key")
 # ── MySQL Configuration ────────────────────────────────────────
 DB_CONFIG = {
     'user': 'u60',
-    'password': 'Been.Chair.Fill.Several.69',
+    'password': '[PASSWORD]',
     'host': 'localhost',
     'database': 'u60',
     'connection_timeout': 5
