@@ -3,9 +3,9 @@
 # Creates supplier/order tables and loads data from JSON files.
 # Requires: parts table must already exist (run j2sql_parts.sh first).
 # ─────────────────────────────────────────────────
-USER="uxx"
-PASS="[PASSWORD]"
-DB="uxx"
+USER="u60"
+PASS="Been.Chair.Fill.Several.69"
+DB="u60" 
 # ─────────────────────────────────────────────────
 
 # Ensure the script runs from its own directory

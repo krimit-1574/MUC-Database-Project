@@ -68,6 +68,9 @@ The app will be available at **http://localhost:5010**
 ```
 MUC-Database-System/
 ├── README.md
+├── report.md                       # Project report
+├── .gitignore                      # Git ignore file
+├── scripts_8.zip                   # Archived scripts backup
 ├── data/                           # JSON data files
 │   ├── parts_100.json
 │   ├── suppliers_100.json
@@ -84,8 +87,9 @@ MUC-Database-System/
     ├── app.py                      # Main app (all 4 operations)
     ├── requirements.txt
     ├── .env
+    ├── venv/                       # Python virtual environment
     ├── static/style.css
-    └── templates/                  # HTML templates (7 files)
+    └── templates/                  # HTML templates (8 files)
 ```
 
 ## Web Application Operations
