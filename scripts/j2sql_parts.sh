@@ -3,7 +3,7 @@
 # Creates the parts table and loads data from parts_100.json
 # ─────────────────────────────────────────────────
 USER="u60"
-PASS="[PASSWORD]"
+PASS="PASSWD"
 DB="u60"
 # ─────────────────────────────────────────────────
 

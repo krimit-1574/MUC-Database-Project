@@ -25,7 +25,7 @@
             <label class="form-label">Phone Numbers</label>
             <div class="phone-fields" id="phone-fields">
                 <div class="phone-row">
-                    <input type="text" class="form-control" name="phone_number" placeholder="e.g. 1-(555)123-4567" required>
+                    <input type="text" pattern="[0-9]{10}" class="form-control" name="phone_number" placeholder="e.g. 5551234567" title="Please enter exactly 10 numeric digits" required>
                     <button type="button" class="btn-add-phone" onclick="addPhoneField()" title="Add another phone number">+</button>
                 </div>
             </div>
@@ -42,7 +42,7 @@ function addPhoneField() {
     const row = document.createElement('div');
     row.className = 'phone-row';
     row.innerHTML = `
-        <input type="text" class="form-control" name="phone_number" placeholder="e.g. 1-(555)123-4567">
+        <input type="text" pattern="[0-9]{10}" class="form-control" name="phone_number" placeholder="e.g. 5551234567" title="Please enter exactly 10 numeric digits">
         <button type="button" class="btn-remove-phone" onclick="removePhoneField(this)" title="Remove">×</button>
     `;
     container.appendChild(row);

@@ -14,7 +14,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback-secret-key")
 # ── MySQL Configuration ────────────────────────────────────────
 DB_CONFIG = {
     'user': 'u60',
-    'password': '[PASSWORD]',
+    'password': 'PASSWD',
     'host': 'localhost',
     'database': 'u60',
     'connection_timeout': 5
@@ -117,8 +117,19 @@ def add_supplier():
             flash("Supplier ID must be a number.", "error")
             return redirect(url_for('add_supplier'))
 
-        # Filter out empty phone numbers
-        phone_numbers = [p.strip() for p in phone_numbers if p.strip()]
+        # Validate and filter phone numbers
+        valid_phone_numbers = []
+        for p in phone_numbers:
+            p_strip = p.strip()
+            if not p_strip:
+                continue
+            if not p_strip.isdigit() or len(p_strip) != 10:
+                flash("Phone numbers must be exactly 10 digits and contain only numbers.", "error")
+                return redirect(url_for('add_supplier'))
+            valid_phone_numbers.append(p_strip)
+
+        phone_numbers = valid_phone_numbers
+
         if not phone_numbers:
             flash("At least one phone number is required.", "error")
             return redirect(url_for('add_supplier'))
