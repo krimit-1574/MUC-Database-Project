@@ -8,7 +8,7 @@ Database management system for MUC Used Cars.
 ## Prerequisites
 
 - Python 3.x
-- MySQL (available on `dbcourse.cs-smu.ca`)
+- MySQL (available on `dbcourse.cs-smu.ca` or your Local Windows Setup)
 - `pip` (Python package manager)
 
 ## Setup & Deployment
@@ -17,51 +17,61 @@ Database management system for MUC Used Cars.
 
 ```bash
 # Option A: Clone from Git
-git clone <your-repo-url> ~/MUC-Database-System
-cd ~/MUC-Database-System
+git clone <your-repo-url> MUC-Database-System
+cd MUC-Database-System
 
-# Option B: Upload via SCP
+# Option B: Upload via SCP (to a school server)
 scp -r Project/ youruser@dbcourse.cs-smu.ca:~/MUC-Database-System/
 ssh youruser@dbcourse.cs-smu.ca
 cd ~/MUC-Database-System
 ```
 
-### 2. Update Credentials
+### 2. Configure Credentials (Secure for GitHub)
 
-Edit the following files and replace `uXX` / `password` with your actual MySQL credentials:
+To avoid leaking your database credentials when pushing code to a public GitHub repository, this project uses an environment variable file (`.env`). **This file is ignored by Git.**
 
+1. Create a `.env` file by copying the provided example:
+   ```bash
+   cp .env.example .env
+   ```
+   *(On Windows Command Prompt, use: `copy .env.example .env`)*
+
+2. Open the `.env` file and update it with your actual MySQL credentials and database name:
+   ```ini
+   DB_HOST=localhost
+   DB_USER=your_username
+   DB_PASS=your_password
+   DB_NAME=your_database_name
+   FLASK_SECRET_KEY=put_some_random_secret_here
+   ```
+
+### 3. Install Dependencies
+Install all required Python packages before proceeding. Make sure you run this from the project root!
 ```bash
-# Bash scripts (lines 6-8)
-nano scripts/j2sql_parts.sh
-nano scripts/j2sql_supp+order.sh
-
-# Flask app (lines 17-20)
-nano public_html/app.py
+# The requirements.txt is located under public_html/
+pip install -r public_html/requirements.txt
 ```
 
-### 3. Create Tables & Load Data
+### 4. Create Tables & Load Data (Cross-Platform)
+
+We have provided a unified Python script (`setup_db.py`) that handles connecting to your database, creating all tables, processing the local JSON files, and generating the necessary SQL inserts. This script works perfectly on both Windows and Linux!
 
 ```bash
-cd ~/MUC-Database-System/scripts
-
-# Step 1: Create and populate the parts table
-bash j2sql_parts.sh
-
-# Step 2: Create and populate supplier + order tables
-bash j2sql_supp+order.sh
+# Run the setup script from the root of the project
+python setup_db.py
 ```
+*(If you are on Linux or macOS, you might need to use `python3 setup_db.py`)*
 
-> **Note:** Run `j2sql_parts.sh` first — the order tables have foreign keys referencing `parts`.
-
-### 4. Run the Web Application
+### 5. Run the Web Application
 
 ```bash
-cd ~/MUC-Database-System/public_html
-pip install -r requirements.txt
-python3 app.py
+cd public_html
+python app.py
 ```
 
 The app will be available at **http://localhost:5010**
+
+> **Note on Legacy Scripts**: The old bash scripts (`scripts/j2sql_parts.sh` and `scripts/j2sql_supp+order.sh`) are still present but `setup_db.py` is the recommended, secure, and cross-platform way to build the database.
 
 ## Project Structure
 
@@ -69,27 +79,24 @@ The app will be available at **http://localhost:5010**
 MUC-Database-System/
 ├── README.md
 ├── report.md                       # Project report
-├── .gitignore                      # Git ignore file
-├── scripts_8.zip                   # Archived scripts backup
+├── .gitignore                      # Git ignore file (safeguards .env)
+├── .env.example                    # Sample required env variables
+├── setup_db.py                     # Universal Database Initialization Script
 ├── data/                           # JSON data files
 │   ├── parts_100.json
 │   ├── suppliers_100.json
 │   └── orders_4000.json
-├── scripts/                        # Database scripts
+├── scripts/                        # Database scripts & queries
 │   ├── parts_table.sql             # CREATE TABLE parts
-│   ├── make_tables.sql             # CREATE TABLE supplier, SupplierPhone, Orders, OrderPart
-│   ├── j2sql_parts.sh              # Load parts data
-│   ├── j2sql_supp+order.sh         # Load supplier & order data
+│   ├── make_tables.sql             # Creates other relations
 │   ├── parse_parts.py              # JSON → SQL for parts
 │   ├── parse_suppliers.py          # JSON → SQL for suppliers
 │   └── parse_orders.py             # JSON → SQL for orders
 └── public_html/                    # Flask web application
     ├── app.py                      # Main app (all 4 operations)
     ├── requirements.txt
-    ├── .env
-    ├── venv/                       # Python virtual environment
     ├── static/style.css
-    └── templates/                  # HTML templates (8 files)
+    └── templates/                  # HTML templates
 ```
 
 ## Web Application Operations

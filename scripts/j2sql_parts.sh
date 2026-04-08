@@ -2,9 +2,14 @@
 # j2sql_parts.sh
 # Creates the parts table and loads data from parts_100.json
 # ─────────────────────────────────────────────────
-USER="u60"
-PASS="PASSWD"
-DB="u60"
+# Load environment variables from .env
+if [ -f ../.env ]; then
+    export $(cat ../.env | grep -v '^#' | xargs)
+fi
+
+USER=${DB_USER:-"root"}
+PASS=${DB_PASS:-""}
+DB=${DB_NAME:-"test"}
 # ─────────────────────────────────────────────────
 
 # Stop script if any command fails
